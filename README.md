@@ -22,7 +22,14 @@ Now you will get an error if you try to do anything fishy!
 
 [![asciicast](https://asciinema.org/a/0uqf6dcaautz599xru1kefa6b.png)](https://asciinema.org/a/0uqf6dcaautz599xru1kefa6b)
 
+# Editing the rules
+
+They are currently in JSON format at `~/.safe-commit-hook/git-deny-patterns.json`.
+
+Just remove the rules you wish to ignore. In the future, would nice to have a `.git-safe-commit-ignore` file for a repo. 
+
 # TODO
 
+ * [ ] Allow project specific exceptions for safe commit checks.
  * [ ] Don't blow away any other git pre-commit hooks in `git init-safe-commit`.
  * [ ] Extend the JSON spec to allow for searching for body of modified files.
