@@ -20,7 +20,7 @@ any other pre-commit hooks).
 
 Now you will get an error if you try to do anything fishy!
 
-[![asciicast](https://asciinema.org/a/3j9pfd2fooepeuptn7xtb44k4.png)](https://asciinema.org/a/3j9pfd2fooepeuptn7xtb44k4)
+[![asciicast](https://asciinema.org/a/0uqf6dcaautz599xru1kefa6b.png)](https://asciinema.org/a/0uqf6dcaautz599xru1kefa6b)
 
 # TODO
 
