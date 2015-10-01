@@ -1,13 +1,14 @@
 # Safe Commit Hook
 
-This is a git [pre-commit hook]() that is inspired by the [Gitrob project](https://github.com/michenriksen/gitrob).
+This is a git [pre-commit hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) that is inspired by the [Gitrob project](https://github.com/michenriksen/gitrob).
 
 It adds an automatic check to prevent developers from checking in suspicious files (as defined by Gitrob's [patterns.json](https://github.com/michenriksen/gitrob/blob/master/patterns.json))
 
 # Installation
 
 ```bash
-git clone http://github.com/jandre/safe-commit-hook
+git clone https://github.com/jandre/safe-commit-hook.git 
+cd safe-commit-hook
 make install  
 ```
 
@@ -18,6 +19,8 @@ This will do the following:
 any other pre-commit hooks).
 
 Now you will get an error if you try to do anything fishy!
+
+[![asciicast](https://asciinema.org/a/3j9pfd2fooepeuptn7xtb44k4.png)](https://asciinema.org/a/3j9pfd2fooepeuptn7xtb44k4)
 
 # TODO
 
