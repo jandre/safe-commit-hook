@@ -81,4 +81,3 @@ files = result.split("\n")
 patterns = read_patterns()
 match_patterns(patterns, files)
 
-exit(1)
