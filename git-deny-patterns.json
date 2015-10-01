@@ -390,6 +390,12 @@
         "pattern": "\\A.*\\.pubxml(\\.user)?\\z",
         "caption": "Potential MSBuild publish profile",
         "description": null
- 
-  }
+    },
+    {
+        "part": "filename",
+        "type": "match",
+        "pattern": ".env",
+        "caption": "PHP dotenv",
+        "description": "Environment file that contains sensitive data"
+    }
 ]
