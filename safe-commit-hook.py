@@ -65,14 +65,18 @@ def read_patterns():
         return matchers 
 
 def match_patterns(patterns, files):
+    commit_safe = True
     for f in files:
         for p in patterns:
             if p['matcher'](f):
-                print '\033[91m' + "[ERROR] Unable to complete git commit." + '\033[0m' 
+                if commit_safe:
+                    print '\033[91m' + "[ERROR] Unable to complete git commit." + '\033[0m'
+                commit_safe = False
                 print "%s: %s" % (f, p['caption'])
                 if p['description']:
                     print p['description']
-                exit(1)
+    if not commit_safe:
+        exit(1)
 
 
 cmd='git diff --name-only --cached'
