@@ -7,7 +7,7 @@ import re
 
 DEFAULT_PATTERNS = os.path.expanduser('~/.safe-commit-hook/git-deny-patterns.json')
 REPO_ROOT = os.getcwd()
-WHITELIST = os.path.join(REPO_ROOT, '.whitelist')
+WHITELIST = os.path.join(REPO_ROOT, '.git-safe-commit-ignore')
 
 
 def make_exact_matcher(str):
