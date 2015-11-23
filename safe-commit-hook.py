@@ -6,6 +6,9 @@ import subprocess
 import re
 
 DEFAULT_PATTERNS=os.path.expanduser('~/.safe-commit-hook/git-deny-patterns.json')
+REPO_ROOT = os.getcwd()
+WHITELIST = os.path.join(REPO_ROOT, '.whitelist')
+
 
 def make_exact_matcher(str):
     def m(target):
@@ -64,17 +67,30 @@ def read_patterns():
                 matchers.append(p)
         return matchers 
 
-def match_patterns(patterns, files):
+def load_whitelist():
+    ignore = []
+    with open(WHITELIST) as wl:
+        for line in wl.readlines():
+            line = line.strip('\n')
+            path = os.path.join(REPO_ROOT, line)
+            ignore.append(path)
+    return ignore
+
+def match_patterns(patterns, files, whitelist=None):
     commit_safe = True
     for f in files:
-        for p in patterns:
-            if p['matcher'](f):
-                if commit_safe:
-                    print '\033[91m' + "[ERROR] Unable to complete git commit." + '\033[0m'
-                commit_safe = False
-                print "%s: %s" % (f, p['caption'])
-                if p['description']:
-                    print p['description']
+        file_path = os.path.join(REPO_ROOT, f)
+        if whitelist and file_path in whitelist:
+            continue
+        else:
+            for p in patterns:
+                if p['matcher'](f):
+                    if commit_safe:
+                        print '\033[91m' + "[ERROR] Unable to complete git commit." + '\033[0m'
+                    commit_safe = False
+                    print "%s: %s" % (f, p['caption'])
+                    if p['description']:
+                        print p['description']
     if not commit_safe:
         exit(1)
 
@@ -83,5 +99,10 @@ cmd='git diff --name-only --cached'
 result = subprocess.check_output(cmd, shell=True)
 files = result.split("\n")
 patterns = read_patterns()
-match_patterns(patterns, files)
+
+if os.path.exists(WHITELIST):
+    whitelist = load_whitelist()
+    match_patterns(patterns, files, whitelist)
+else:
+    match_patterns(patterns, files)
 
