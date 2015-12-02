@@ -5,10 +5,10 @@ import json
 import subprocess
 import re
 
-DEFAULT_PATTERNS = os.path.expanduser('~/.safe-commit-hook/git-deny-patterns.json')
-REPO_ROOT = os.getcwd()
-WHITELIST = os.path.join(REPO_ROOT, '.git-safe-commit-ignore')
-
+def get_repo_root():
+    output = subprocess.check_output('git rev-parse --show-toplevel', shell=True)
+    repo_root = output.split("\n")[0]
+    return os.path.join(repo_root)
 
 def make_exact_matcher(str):
     def m(target):
@@ -102,6 +102,10 @@ def match_patterns(patterns, files, whitelist=None):
     if not commit_safe:
         exit(1)
 
+
+DEFAULT_PATTERNS = os.path.expanduser('~/.safe-commit-hook/git-deny-patterns.json')
+REPO_ROOT = get_repo_root()
+WHITELIST = os.path.join(REPO_ROOT, '.git-safe-commit-ignore')
 
 cmd = 'git diff --name-only --cached'
 result = subprocess.check_output(cmd, shell=True)
