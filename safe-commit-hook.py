@@ -103,6 +103,7 @@ def match_patterns(patterns, files, whitelist=None):
         exit(1)
 
 def main():
+    global DEFAULT_PATTERNS, REPO_ROOT, WHITELIST
     DEFAULT_PATTERNS = os.path.expanduser('~/.safe-commit-hook/git-deny-patterns.json')
     REPO_ROOT = get_repo_root()
     WHITELIST = os.path.join(REPO_ROOT, '.git-safe-commit-ignore')
