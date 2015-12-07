@@ -102,18 +102,21 @@ def match_patterns(patterns, files, whitelist=None):
     if not commit_safe:
         exit(1)
 
+def main():
+    DEFAULT_PATTERNS = os.path.expanduser('~/.safe-commit-hook/git-deny-patterns.json')
+    REPO_ROOT = get_repo_root()
+    WHITELIST = os.path.join(REPO_ROOT, '.git-safe-commit-ignore')
 
-DEFAULT_PATTERNS = os.path.expanduser('~/.safe-commit-hook/git-deny-patterns.json')
-REPO_ROOT = get_repo_root()
-WHITELIST = os.path.join(REPO_ROOT, '.git-safe-commit-ignore')
+    cmd = 'git diff --name-only --cached'
+    result = subprocess.check_output(cmd, shell=True)
+    files = result.split("\n")
+    patterns = read_patterns()
 
-cmd = 'git diff --name-only --cached'
-result = subprocess.check_output(cmd, shell=True)
-files = result.split("\n")
-patterns = read_patterns()
+    if os.path.exists(WHITELIST):
+        whitelist = load_whitelist()
+        match_patterns(patterns, files, whitelist)
+    else:
+        match_patterns(patterns, files)
 
-if os.path.exists(WHITELIST):
-    whitelist = load_whitelist()
-    match_patterns(patterns, files, whitelist)
-else:
-    match_patterns(patterns, files)
+if __name__ == "__main__":
+    main()
