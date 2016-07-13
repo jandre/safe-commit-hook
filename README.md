@@ -2,7 +2,7 @@
 
 This is a git [pre-commit hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) that is inspired by the [Gitrob project](https://github.com/michenriksen/gitrob).
 
-It adds an automatic check to prevent developers from checking in suspicious files (as defined by Gitrob's [patterns.json](https://github.com/michenriksen/gitrob/blob/master/patterns.json))
+It adds an automatic check to prevent developers from checking in suspicious files (as defined by Gitrob's [signatures.json](https://github.com/michenriksen/gitrob/blob/master/signatures.json))
 
 # Installation
 
